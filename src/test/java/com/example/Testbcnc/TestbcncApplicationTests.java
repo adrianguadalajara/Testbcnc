@@ -25,14 +25,17 @@ public class TestbcncApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
-     @Test
+    @Test
     public void test() throws Exception {
         MvcResult result =  mockMvc.perform(get("/api/precios/ping"))
             .andExpect(status().isOk())
             .andReturn();
 
         String json = result.getResponse().getContentAsString();
-        System.out.println("------------------------------------------------");
+        System.out.println();
+        System.out.println("------------------");
+        System.out.println("|    TEST PING   |");
+        System.out.println("------------------");
         System.out.println("Respuesta del servicio /ping: " + json);
     }
     /**
@@ -72,7 +75,7 @@ public class TestbcncApplicationTests {
      * @param brandId
      * @throws Exception
      */
-    private void lanzarTest(String applicationDate, String productId, String brandId, Double price, int numeroTest) throws Exception {
+    private void lanzarTest(String url,String applicationDate, String productId, String brandId, Double price, int numeroTest) throws Exception {
        //Cabecera del test
        System.out.println();
        System.out.println("------------------");
@@ -84,13 +87,18 @@ public class TestbcncApplicationTests {
            return;
        }
 
-        MvcResult result =  mockMvc.perform(get("/api/precios/obtenerPrecio")
+        MvcResult result =  mockMvc.perform(get(url)
             .param("applicationDate", applicationDate)
             .param("productId", productId)
             .param("brandId", brandId))
             //.andExpect(status().isOk())
             //.andExpect(jsonPath("$.price").value(price))
             .andReturn();
+        //Si la llamada no es correcta, mostramos el error y salimos
+        if(result.getResponse().getStatus() != 200) {
+            System.out.println("Error en la llamada al servicio. Status: " + result.getResponse().getStatus() +". URL: " + url);
+            return;
+        }
         String json = result.getResponse().getContentAsString();
 
         if (json != null && !json.isEmpty()) {
@@ -103,37 +111,42 @@ public class TestbcncApplicationTests {
 
     @Test
     public void test1() throws Exception {
-       lanzarTest("2020-06-14T10:00:00", "35455", "1",35.50,1);
+       lanzarTest("/api/precios/obtenerPrecio","2020-06-14T10:00:00", "35455", "1",35.50,1);
     }
  
     @Test
     public void test2() throws Exception {
-       lanzarTest("2020-06-14T16:00:00", "35455", "1",25.45,2);
+       lanzarTest("/api/precios/obtenerPrecio","2020-06-14T16:00:00", "35455", "1",25.45,2);
     }
 
     @Test
     public void test3() throws Exception {
-       lanzarTest("2020-06-14T21:00:00", "35455", "1",35.50,3);
+       lanzarTest("/api/precios/obtenerPrecio","2020-06-14T21:00:00", "35455", "1",35.50,3);
     }
 
     @Test
     public void test4() throws Exception {
-       lanzarTest("2020-06-15T10:00:00", "35455", "1",30.50,4);
+       lanzarTest("/api/precios/obtenerPrecio","2020-06-15T10:00:00", "35455", "1",30.50,4);
     }
 
     @Test
     public void test5() throws Exception {
-       lanzarTest("2020-06-16T21:00:00", "35455", "1",38.95,5);
+       lanzarTest("/api/precios/obtenerPrecio","2020-06-16T21:00:00", "35455", "1",38.95,5);
     }
 
     @Test
     public void test6() throws Exception {
-       lanzarTest("2025-06-16T21:00:00", "35455", "1",38.95,6);
+       lanzarTest("/api/precios/obtenerPrecio","2025-06-16T21:00:00", "35455", "1",38.95,6);
     }
 
-     @Test
+    @Test
     public void test7() throws Exception {
-       lanzarTest("2025-06-16T21:00:00", "35455", "a",38.95,7);
+       lanzarTest("/api/precios/obtenerPrecio","2025-06-16T21:00:00", "35455", "a",38.95,7);
+    }
+
+    @Test
+    public void test8() throws Exception {
+        lanzarTest("/api/precios/fallar","2025-06-16T21:00:00", "35455", "1",38.95,8);
     }
 
 }

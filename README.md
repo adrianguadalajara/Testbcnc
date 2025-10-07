@@ -8,7 +8,7 @@ Servicio REST para consulta de precios, desarrollado con Spring Boot y arquitect
 - API REST con endpoint GET para consulta de precios
 - Inicialización automática de datos en H2 usando `data.sql`
 - Pruebas de integración con JUnit y MockMvc
-- Tratamiento de errores con try-catch en el controlador y manejo global con `@ControllerAdvice`
+- Tratamiento de errores con try-catch en el controlador
 - Código limpio, siguiendo principios SOLID y buenas prácticas
 - Control de versiones preparado para Git
 
@@ -58,13 +58,13 @@ Servicio REST para consulta de precios, desarrollado con Spring Boot y arquitect
     "curr": "EUR"
   }
   ```
-- **Respuesta no encontrada:** HTTP 404
+- **Respuesta no encontrada:** HTTP 404.
 - **Errores:**
   - Si los parámetros son inválidos, HTTP 400 con mensaje claro.
   - Si ocurre un error interno, HTTP 500 con mensaje de error.
 
 ## Inicialización de datos
-- Los datos de ejemplo se cargan automáticamente al iniciar la aplicación desde los archivos `schema.sql` y `data.sql`.
+- Los datos de ejemplo se cargan automáticamente al iniciar la aplicación desde el archivo `data.sql`.
 
 ## Pruebas
 - Ejecuta `mvn clean test` para validar los tests de integración.
