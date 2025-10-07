@@ -22,6 +22,8 @@ public class Precio {
     private Integer priority;
     private BigDecimal price;
     private String curr;
+    private String error;
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Integer getBrandId() { return brandId; }
@@ -40,4 +42,6 @@ public class Precio {
     public void setPrice(BigDecimal price) { this.price = price; }
     public String getCurr() { return curr; }
     public void setCurr(String curr) { this.curr = curr; }
+    public String getError() { return error; }
+    public void setError(String error) { this.error = error; }
 }

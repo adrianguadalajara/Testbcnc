@@ -42,11 +42,11 @@ public class TestbcncApplicationTests {
     private void pintarRespuesta(String json) {
         
         Precio response;
-        System.out.println("------------------------------------------------");
+       
         try {
             response = objectMapper.readValue(json, Precio.class);
-            if(response.getPrice() == null) {
-            	System.out.println("No se ha encontrado ningún precio para los parámetros indicados");
+            if(response.getError() != null) {
+            	System.out.println(response.getError());
             	return;
             }
 
@@ -72,8 +72,13 @@ public class TestbcncApplicationTests {
      * @param brandId
      * @throws Exception
      */
-    private void lanzarTest(String applicationDate, String productId, String brandId, Double price) throws Exception {
-       //debemos comprobar que tanto el productId como el brandId son numéricos
+    private void lanzarTest(String applicationDate, String productId, String brandId, Double price, int numeroTest) throws Exception {
+       //Cabecera del test
+       System.out.println();
+       System.out.println("------------------");
+       System.out.println("|     TEST " + numeroTest + "     |");
+       System.out.println("------------------");
+        //debemos comprobar que tanto el productId como el brandId son numéricos
        if (!productId.matches("\\d+") || !brandId.matches("\\d+")) {
            System.out.println("El productId y el brandId deben ser numéricos");
            return;
@@ -93,42 +98,42 @@ public class TestbcncApplicationTests {
         } else {
             System.out.println("La respuesta JSON está vacía o es nula.");
         }
-        
+
     }
 
     @Test
     public void test1() throws Exception {
-       lanzarTest("2020-06-14T10:00:00", "35455", "1",35.50);
+       lanzarTest("2020-06-14T10:00:00", "35455", "1",35.50,1);
     }
  
     @Test
     public void test2() throws Exception {
-       lanzarTest("2020-06-14T16:00:00", "35455", "1",25.45);
+       lanzarTest("2020-06-14T16:00:00", "35455", "1",25.45,2);
     }
 
     @Test
     public void test3() throws Exception {
-       lanzarTest("2020-06-14T21:00:00", "35455", "1",35.50);
+       lanzarTest("2020-06-14T21:00:00", "35455", "1",35.50,3);
     }
 
     @Test
     public void test4() throws Exception {
-       lanzarTest("2020-06-15T10:00:00", "35455", "1",30.50);
+       lanzarTest("2020-06-15T10:00:00", "35455", "1",30.50,4);
     }
 
     @Test
     public void test5() throws Exception {
-       lanzarTest("2020-06-16T21:00:00", "35455", "1",38.95);
+       lanzarTest("2020-06-16T21:00:00", "35455", "1",38.95,5);
     }
 
     @Test
     public void test6() throws Exception {
-       lanzarTest("2025-06-16T21:00:00", "35455", "1",38.95);
+       lanzarTest("2025-06-16T21:00:00", "35455", "1",38.95,6);
     }
 
      @Test
     public void test7() throws Exception {
-       lanzarTest("2025-06-16T21:00:00", "35455", "a",38.95);
+       lanzarTest("2025-06-16T21:00:00", "35455", "a",38.95,7);
     }
 
 }

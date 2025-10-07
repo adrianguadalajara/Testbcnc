@@ -13,13 +13,17 @@ import java.util.Optional;
 public class PrecioServiceImpl implements PrecioServicePort {
     @Autowired
     private PrecioRepository precioRepository;
-    
+
     @Override
     public Optional<Precio> obtenerPrecio(Integer brandId, Integer productId, LocalDateTime applicationDate) {
-        List<Precio> precios = precioRepository.obtenerPrecio(brandId, productId, applicationDate);
-        if(precios.isEmpty()) {
-        	return Optional.of(new Precio());
+        try {
+            List<Precio> precios = precioRepository.obtenerPrecio(brandId, productId, applicationDate);
+            if(precios.isEmpty()) {
+                return Optional.of(new Precio());
+            }
+            return precios.stream().findFirst();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener el precio: " + e.getMessage(), e);
         }
-        return precios.stream().findFirst();
     }
 }

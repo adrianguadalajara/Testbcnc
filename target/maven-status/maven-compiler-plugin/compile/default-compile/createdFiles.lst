@@ -1,3 +1,4 @@
+com\example\Testbcnc\adapter\in\GlobalExceptionHandler.class
 com\example\Testbcnc\TestbcncApplication.class
 com\example\Testbcnc\port\PrecioServicePort.class
 com\example\Testbcnc\application\PrecioServiceImpl.class

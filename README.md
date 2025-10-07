@@ -14,7 +14,7 @@ Servicio REST para consulta de precios, desarrollado con Spring Boot y arquitect
 
 ## Requisitos
 - Java 8+
-- Maven
+- Maven 3.6.3
 
 ## Instalación y ejecución
 1. Clona el repositorio:
@@ -76,19 +76,25 @@ src/
   main/
     java/
       com/example/Testbcnc/
-        domain/           # Entidades
-        port/             # Interfaces de dominio
-        application/      # Casos de uso
         adapter/in/       # Adaptadores de entrada (REST)
+            PrecioRestController.java
         adapter/out/      # Adaptadores de salida (JPA)
+            PrecioRepository.java
+        application/      # Casos de uso
+            PrecioServiceImpl.java
+        domain/           # Entidades
+            Precio.java
+        port/             # Interfaces de dominio
+            PrecioServicePort.java
+        TestbcncApplication.java
   test/
     java/
       com/example/Testbcnc/
         TestbcncApplicationTests.java
 resources/
   application.properties
-  schema.sql
   data.sql
+pom.xml
 ```
 
 ## Buenas prácticas
@@ -99,7 +105,7 @@ resources/
 - Tratamiento de errores robusto
 
 ## Autor
-- [Tu nombre]
+- Adrián Guadalajara Abejar
 
 ## Licencia
 Este proyecto es solo para fines de evaluación técnica.

@@ -30,9 +30,9 @@ public class PrecioRestController {
             Optional<Precio> result = precioService.obtenerPrecio(brandId, productId, applicationDate);
             // Si no se encuentra ningún precio, devolvemos un mensaje adecuado
             if(result.get().getBrandId() == null || result.get().getProductId() == null) {
-                return ResponseEntity.ok("No se ha encontrado un precio para los parámetros indicados");
+                result.get().setError("No se ha encontrado un precio para los parámetros indicados");
             }
-            // Devolvemos el precio encontrado
+            // Devolvemos el precio encontrado o el mensaje de error
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error interno: " + e.getMessage());
