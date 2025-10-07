@@ -1,0 +1,6 @@
+com\example\Testbcnc\TestbcncApplication.class
+com\example\Testbcnc\port\PrecioServicePort.class
+com\example\Testbcnc\application\PrecioServiceImpl.class
+com\example\Testbcnc\domain\Precio.class
+com\example\Testbcnc\adapter\in\PrecioRestController.class
+com\example\Testbcnc\adapter\out\PrecioRepository.class
